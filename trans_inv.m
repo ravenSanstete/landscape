@@ -1,11 +1,11 @@
 %% consider a distribution on (NI)^n with translation distribution I = [0,1]
-MORINO = [false, true];
+MORINO = [true, false];
 n = 3;
 center = 0.5 * ones(n, 1);
 s = 0.0;
 e = 1.0;
 N = 3;
-sample_size = 500;
+sample_size = 5000;
 sigma = 0.05;
 
 g = makedist('Normal', 0 , sigma);
@@ -32,6 +32,7 @@ if(MORINO(1))
     end
 
     Y = tsne(X');
+    figure;
 
     plot3(Y(:, 1), Y(:, 2), density, '.');
 end
