@@ -26,8 +26,8 @@ prober_limit = 100;
 batch_size = 500;
 bound = 0.001;
 
-TRANSLATION = false;
-ROTATION = true;
+TRANSLATION = true;
+ROTATION = false;
 BROWNIAN = false;
 
 %% the teacher network parameter
@@ -37,7 +37,7 @@ p_sigma = 3;
 norms = [];
 losses = [];
 iter = 0;
-BOUND = 1000;
+BOUND = 10;
 
 
 if(TRANSLATION)
@@ -89,8 +89,6 @@ end
 plot(interval, norms);
 figure;
 plot3(pts(:, 1), pts(:, 2), pts(:, 3), '.');
-figure;
-plot(interval, losses);
 end
 
 
@@ -107,14 +105,10 @@ for pt = interval
     prober = X(randsample(sample_size, batch_size),:);
     grad = delta_J_batch(prober, w, w_star)/batch_size;
     norms(iter) = norm(grad);
-    loss = J_batch(prober, w, w_star);
-    losses(iter) = loss;
     w = w + b_sigma*randn(n, 1);
 end
 
 plot(interval, norms);
 figure;
 plot3(pts(:, 1), pts(:, 2), pts(:, 3));
-figure;
-plot(interval, losses);
 end
